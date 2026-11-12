@@ -336,43 +336,7 @@
         document.title = lang === 'cn' ? '人像摄影 · 陈林川' : 'Portrait · Linchuan Chen';
     }
 
-    const DATA = [
-        { sub:'HeYuan-河源', files:[
-            '07322bc636fb7c1c54422894aa37539d.JPG',
-            '0c0e22d5ebe046a43234071e1ee397e1.JPG',
-            '2753498bdd94337ce97ed605cf48c911.JPG',
-            '3084d41209de8513aec7bab57e970937.JPG',
-            '4085b42fa85ba4e13c7b7ed8a10dfe1f.JPG',
-            '4d04237993fff7e6453ef4a2a1088609.JPG',
-            '7361a53d43eae499db9020e3f47f90e9.JPG',
-            '76986524fc1248881ca446f0aa8ff2c2.JPG',
-            '82c742fe6f61ac8c0c3cb1ec8df405f8.JPG',
-            '875a1d8f5528a180a23ede4e2e5311fb.JPG',
-            '883b17d4d68b1574082baf045d897cd5.JPG',
-            '8b5767289c91451eb7043e1d1d37416c.JPG',
-            'IMG_0355.JPG','IMG_0356.JPG','IMG_0360.JPG','IMG_0361.JPG',
-            'a6b679bd6f34b99c6371c0ba697c7032.JPG',
-            'aa1a629c237ee97ac3bc2e655418f556.JPG',
-            'd35cdd8446169ba6ab892b57fa9b4838.JPG',
-            'tangchao-9.jpg',
-            '195403a46e8aacbd518944fdce0a94f4.jpg','IMG_0362.jpg','IMG_0363.jpg',
-            'd2e3b1b4cbe3ad7ae2b22306b28f49f1.jpg','daf59bde2eb8052cfaba50de548fb900.jpg'
-        ]},
-        { sub:'US_MI', files:[
-            'IMG_5564.JPG','_DSC0568.JPG',
-            '169ef65d7e79255c10883f8ade0ccae3.jpg','53539f48ea5e54527be8c58d0efe6aff.jpg',
-            '6d652be17fd7cee6f4845ef903d5c3aa.jpg','8e67a8e08a70347dfbd738a20e99b91d.jpg',
-            '9738744574675a17e533836359c33ca9.jpg'
-        ]},
-        { sub:'ShenZhen-深圳', files:[
-            '194aba95db59e465327186c5b728c905.jpg','21203d66db7f358da1fde82832739da2.jpg',
-            '8c1d90a156d6427e446e33b3fe17a8cc.jpg','b640263e4de82cff4552eaa59bbc6d5b.jpg',
-            'd7dd2b7b6488b232fe387f99c20080b3.jpg'
-        ]},
-        { sub:'NYC-纽约', files:[
-            '8db278a84b4d3c66517accadba8863ee.jpg','b9dcdfb0de53a5f105c9ec46bc0dba58.jpg'
-        ]}
-    ];
+    const DATA = [{"sub": "HeYuan-河源", "files": ["07322bc636fb7c1c54422894aa37539d.JPG", "0c0e22d5ebe046a43234071e1ee397e1.JPG", "2753498bdd94337ce97ed605cf48c911.JPG", "3084d41209de8513aec7bab57e970937.JPG", "4085b42fa85ba4e13c7b7ed8a10dfe1f.JPG", "4d04237993fff7e6453ef4a2a1088609.JPG", "7361a53d43eae499db9020e3f47f90e9.JPG", "76986524fc1248881ca446f0aa8ff2c2.JPG", "82c742fe6f61ac8c0c3cb1ec8df405f8.JPG", "875a1d8f5528a180a23ede4e2e5311fb.JPG", "883b17d4d68b1574082baf045d897cd5.JPG", "8b5767289c91451eb7043e1d1d37416c.JPG", "IMG_0355.JPG", "IMG_0356.JPG", "IMG_0360.JPG", "IMG_0361.JPG", "a6b679bd6f34b99c6371c0ba697c7032.JPG", "aa1a629c237ee97ac3bc2e655418f556.JPG", "d35cdd8446169ba6ab892b57fa9b4838.JPG", "tangchao-9.jpg", "195403a46e8aacbd518944fdce0a94f4.jpg", "IMG_0362.jpg", "IMG_0363.jpg", "d2e3b1b4cbe3ad7ae2b22306b28f49f1.jpg", "daf59bde2eb8052cfaba50de548fb900.jpg"]}, {"sub": "US_MI", "files": ["IMG_5564.JPG", "_DSC0568.JPG", "169ef65d7e79255c10883f8ade0ccae3.jpg", "53539f48ea5e54527be8c58d0efe6aff.jpg", "6d652be17fd7cee6f4845ef903d5c3aa.jpg", "8e67a8e08a70347dfbd738a20e99b91d.jpg", "9738744574675a17e533836359c33ca9.jpg"]}, {"sub": "ShenZhen-深圳", "files": ["194aba95db59e465327186c5b728c905.jpg", "21203d66db7f358da1fde82832739da2.jpg", "8c1d90a156d6427e446e33b3fe17a8cc.jpg", "b640263e4de82cff4552eaa59bbc6d5b.jpg", "d7dd2b7b6488b232fe387f99c20080b3.jpg"]}, {"sub": "NYC-纽约", "files": ["8db278a84b4d3c66517accadba8863ee.jpg", "b9dcdfb0de53a5f105c9ec46bc0dba58.jpg"]}];
 
     const ALL = [];
     DATA.forEach(g => g.files.forEach(f => ALL.push({
@@ -447,6 +411,18 @@
         if (total > 0) progressBar.style.width = `${(y / total) * 100}%`;
     }, { passive: true });
 
+    /* DRIVE GENERATED START */
+    const DRIVE_LOCATIONS = {};
+    Object.entries(DRIVE_LOCATIONS).forEach(([sub, label], i) => {
+        SUB_LOC[sub] = {en: label, cn: label};
+        const key = 'drive.location.' + i;
+        TRANS.en[key] = label; TRANS.cn[key] = label;
+        const button = document.createElement('button');
+        button.className = 'f-btn'; button.dataset.sub = sub; button.dataset.i18n = key;
+        button.textContent = label; button.onclick = () => filterSub(sub, button);
+        document.querySelector('[data-sub="all"]').parentElement.appendChild(button);
+    });
+    /* DRIVE GENERATED END */
     setLang(_lang);
     renderGrid();
 </script>

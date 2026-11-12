@@ -367,27 +367,7 @@
     }
 
     /* ── data ── */
-    const DATA = [
-        { sub:'US_MI', files:[
-            'Bird.JPG','Bird2.JPG','Bird3.JPG','Bird4.JPG','Bird5.JPG','Bird6.JPG','Bird7.JPG','Bird8.JPG','Bird9.JPG',
-            'Bird10.JPG','Bird11.JPG','Bird12.JPG','Bird13.JPG','Bird14.JPG','Bird15.JPG','Bird16.JPG','Bird17.JPG','Bird18.JPG','Bird19.JPG',
-            'Bird20.JPG','Bird21.JPG','Bird22.JPG','Bird23.JPG','Bird24.JPG','Bird25.JPG','Bird26.JPG','Bird27.JPG','Bird28.JPG','Bird29.JPG',
-            'Bird30.JPG','Bird31.JPG','Bird32.JPG','Bird33.JPG','Bird34.JPG','Bird35.JPG','Bird36.JPG','Bird37.JPG','Bird38.JPG','Bird39.JPG',
-            'Bird40.JPG','Bird41.JPG','Bird42.JPG','Bird43.JPG','Bird44.JPG','Bird45.JPG',
-            'DSC_0385.jpg','Deer.JPG','Deer2.JPG','Deer3.JPG','Deer4.JPG','Deer5.JPG','Deer6.JPG','Deer7.JPG','Deer8.JPG','Deer9.JPG',
-            'Duck.JPG','Duck2.JPG','Eagle1.JPG','Eagle2.JPG','Eagle3.JPG','Eagle4.JPG','Eagle5.JPG',
-            'IMG_5448.JPG','Sep-6-3.jpg','Sep-6-4.jpg',
-            'Squirrel.JPG','Squirrel2.JPG','Squirrel3.JPG','Squirrel4.JPG',
-            'Swan.JPG','Swan2.JPG','Swan3.JPG','_DSC2213.JPG',
-            '727e16c9154f7477e36793f8d0c87376.jpg','7fdbc76e9a5298b518f4aecb9fcf851d.jpg',
-            '86afe32c858b5c5019dccb596a37cd44.jpg','8eaee9270ffe3933297c5cfb2c762750.jpg',
-            '8f8fe524fe9cb38132bdafd62e618ce6.jpg','d076bfbe4edc7bab7dc9a05dcf23132a.jpg'
-        ]},
-        { sub:'YuanNan-云南', files:[
-            'yunnan-98.jpg','yunnan-99.jpg','yunnan-100.jpg','yunnan-101.jpg','yunnan-102.jpg',
-            'yunnan-103.jpg','yunnan-104.jpg','yunnan-105.jpg','yunnan-106.jpg'
-        ]}
-    ];
+    const DATA = [{"sub": "US_MI", "files": ["Bird.JPG", "Bird2.JPG", "Bird3.JPG", "Bird4.JPG", "Bird5.JPG", "Bird6.JPG", "Bird7.JPG", "Bird8.JPG", "Bird9.JPG", "Bird10.JPG", "Bird11.JPG", "Bird12.JPG", "Bird13.JPG", "Bird14.JPG", "Bird15.JPG", "Bird16.JPG", "Bird17.JPG", "Bird18.JPG", "Bird19.JPG", "Bird20.JPG", "Bird21.JPG", "Bird22.JPG", "Bird23.JPG", "Bird24.JPG", "Bird25.JPG", "Bird26.JPG", "Bird27.JPG", "Bird28.JPG", "Bird29.JPG", "Bird30.JPG", "Bird31.JPG", "Bird32.JPG", "Bird33.JPG", "Bird34.JPG", "Bird35.JPG", "Bird36.JPG", "Bird37.JPG", "Bird38.JPG", "Bird39.JPG", "Bird40.JPG", "Bird41.JPG", "Bird42.JPG", "Bird43.JPG", "Bird44.JPG", "Bird45.JPG", "DSC_0385.jpg", "Deer.JPG", "Deer2.JPG", "Deer3.JPG", "Deer4.JPG", "Deer5.JPG", "Deer6.JPG", "Deer7.JPG", "Deer8.JPG", "Deer9.JPG", "Duck.JPG", "Duck2.JPG", "Eagle1.JPG", "Eagle2.JPG", "Eagle3.JPG", "Eagle4.JPG", "Eagle5.JPG", "IMG_5448.JPG", "Sep-6-3.jpg", "Sep-6-4.jpg", "Squirrel.JPG", "Squirrel2.JPG", "Squirrel3.JPG", "Squirrel4.JPG", "Swan.JPG", "Swan2.JPG", "Swan3.JPG", "_DSC2213.JPG", "727e16c9154f7477e36793f8d0c87376.jpg", "7fdbc76e9a5298b518f4aecb9fcf851d.jpg", "86afe32c858b5c5019dccb596a37cd44.jpg", "8eaee9270ffe3933297c5cfb2c762750.jpg", "8f8fe524fe9cb38132bdafd62e618ce6.jpg", "d076bfbe4edc7bab7dc9a05dcf23132a.jpg"]}, {"sub": "YuanNan-云南", "files": ["yunnan-98.jpg", "yunnan-99.jpg", "yunnan-100.jpg", "yunnan-101.jpg", "yunnan-102.jpg", "yunnan-103.jpg", "yunnan-104.jpg", "yunnan-105.jpg", "yunnan-106.jpg"]}];
 
     const ALL = [];
     DATA.forEach(g => g.files.forEach(f => ALL.push({
@@ -481,6 +461,19 @@
     }, { passive: true });
 
     /* ── init ── */
+
+    /* DRIVE GENERATED START */
+    const DRIVE_LOCATIONS = {};
+    Object.entries(DRIVE_LOCATIONS).forEach(([sub, label], i) => {
+        SUB_LOC[sub] = {en: label, cn: label};
+        const key = 'drive.location.' + i;
+        TRANS.en[key] = label; TRANS.cn[key] = label;
+        const button = document.createElement('button');
+        button.className = 'f-btn'; button.dataset.sub = sub; button.dataset.i18n = key;
+        button.textContent = label; button.onclick = () => filterSub(sub, button);
+        document.querySelector('[data-sub="all"]').parentElement.appendChild(button);
+    });
+    /* DRIVE GENERATED END */
     setLang(_lang);
     renderGrid();
 </script>
