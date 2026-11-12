@@ -21,7 +21,14 @@ GitHub 调度及部署可能延迟，不保证 30 分钟内上线。公开仓库
 现有 196 张照片由 `data/gallery-baseline.json` 管理，导入记录为 `data/drive-state.json`，不要清空这些记录。
 Drive 中这三个文件夹只放打算公开的照片；同步后照片将公开在网站及 GitHub 仓库。
 
-## 一次性配置
+## 已配置的云端资源
+
+- Google Cloud 项目：`our-monolith-514514-s2`（Linchuan Gallery Sync）
+- 专用账号：`gallery-sync@our-monolith-514514-s2.iam.gserviceaccount.com`
+- Drive API 已启用；相册根文件夹仅给该账号 Viewer 权限。
+- GitHub Repository Secret：`GOOGLE_SERVICE_ACCOUNT_JSON`；Pages Source：GitHub Actions。
+
+## 一次性配置（重建时参考）
 
 1. 使用可访问 Google Cloud 的账号创建专用项目，启用 **Google Drive API**。
    不需要启动付费试用或绑定结算账号。学校账号禁用 Cloud 时，可用个人账号创建项目。

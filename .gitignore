@@ -3,3 +3,4 @@ __pycache__/
 .venv/
 _site/
 *service-account*.json
+/our-monolith-514514-s2-*.json
