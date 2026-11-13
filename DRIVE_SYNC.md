@@ -2,12 +2,14 @@
 
 ## 日常使用
 
+当前上传入口为私人 Google 账号下的 [linchuan.github.io](https://drive.google.com/drive/u/1/folders/1X-hAVIHzDDuJwUWXlwJH_qFBIyzwa7E5)。学校账号中原来的同名文件夹不再是同步来源。
+
 将照片放入以下三个分类文件夹，自动任务在每小时第 17 和第 47 分钟检查。
 GitHub 调度及部署可能延迟，不保证 30 分钟内上线。公开仓库长期无活动时，GitHub 可能停用定时任务，需要在 Actions 中重新启用。
 
-- Cute Animals：`1131KYwlQxl71OMouL9mikNNjXQ_oEd9O`
-- Landscape：`1Xukd286npt7frGR9u9FiAg-LK5D-Go8q`
-- Portrait：`1pPtZuw4OEJtGNp7Sh6jvehs7VmMUZKud`
+- Cute Animals：`1InYYGX8bhyh7i5__7fPsq8oE7RkOV6a3`
+- Landscape：`1OhZZ0QUvshDp2sCrh46ZlWCqsQYfwtZl`
+- Portrait：`1b4V4wPY6Mf4Q0dzxArqZgFtrbnwDxtb_`
 
 地点可用子文件夹，例如 `Landscape/香港/照片.jpg`。多层地点文件夹会合并成地点标签。
 直接放在分类根目录的照片归到 `New uploads`。
@@ -33,7 +35,7 @@ Drive 中这三个文件夹只放打算公开的照片；同步后照片将公�
 1. 使用可访问 Google Cloud 的账号创建专用项目，启用 **Google Drive API**。
    不需要启动付费试用或绑定结算账号。学校账号禁用 Cloud 时，可用个人账号创建项目。
 2. 创建服务账号（例如 `gallery-sync`），**不授予项目 IAM 角色**，不启用全域委派。
-3. 将相册根文件夹 `14hTdRTeOLfDYERZGCylH1Mlm67fwANIK` 分享给该服务账号邮件，权限选择 **Viewer/查看者**。
+3. 将相册根文件夹 `1X-hAVIHzDDuJwUWXlwJH_qFBIyzwa7E5` 分享给该服务账号邮件，权限选择 **Viewer/查看者**。
    原文件夹无需改为“知道链接的所有人”，只授予这个专用账号。若学校禁止外部共享，需要学校管理员允许或将相册迁到个人 Drive 后修改 `data/drive-config.json` 中的 ID。
 4. 为服务账号生成 JSON 密钥，在仓库 Settings → Secrets and variables → Actions 创建名为
    `GOOGLE_SERVICE_ACCOUNT_JSON` 的 Repository secret，值为完整 JSON。不要将密钥提交到仓库、粘贴到聊天或前端代码。
