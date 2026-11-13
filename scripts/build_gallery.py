@@ -23,7 +23,7 @@ def build(root):
     baseline = json.loads((root / 'data/gallery-baseline.json').read_text())
     state = json.loads((root / 'data/drive-state.json').read_text())
     groups = [dict(g, files=list(g['files'])) for g in baseline]
-    additions = list(state['files'].values())
+    additions = [p for p in state['files'].values() if not p.get('baseline')]
     by_key = {(g['cat'], g['sub']): g for g in groups}
     for photo in additions:
         key = (photo['cat'], photo['sub'])

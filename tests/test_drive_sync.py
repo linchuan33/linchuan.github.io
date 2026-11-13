@@ -26,6 +26,25 @@ class Response:
 
 
 class SyncTests(unittest.TestCase):
+    def test_archived_photo_binds_existing_entry_without_duplicate(self):
+        class Session:
+            def get(self, *args, **kwargs):
+                return Response({'mimeType': 'application/vnd.google-apps.folder'})
+        item = {'id': 'archived-photo', 'name': 'moon.png', 'mimeType': 'image/png', 'md5Checksum': 'verified-compressed-hash'}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'data').mkdir()
+            (root / 'data/drive-archive.json').write_text(json.dumps([{
+                'cat': 'Landscape', 'sub': 'US_MI', 'drive_name': 'moon.png',
+                'file': 'moon.bmp', 'md5': 'verified-compressed-hash',
+            }]))
+            state = {'version': 1, 'files': {}}
+            with patch('sync_drive.walk', return_value=[(item, 'US_MI')]), patch('sync_drive.download') as downloader:
+                self.assertEqual(import_photos(Session(), {'categories': {'Landscape': 'folder'}}, state, root), 0)
+                downloader.assert_not_called()
+            self.assertTrue(state['files']['archived-photo']['baseline'])
+            self.assertEqual(state['files']['archived-photo']['file'], 'moon.bmp')
+
     def test_pagination(self):
         class Session:
             def get(self, url, params, timeout):
@@ -97,7 +116,9 @@ class SyncTests(unittest.TestCase):
             new.parent.mkdir()
             new.touch()
             (root / 'data/gallery-baseline.json').write_text(json.dumps(baseline))
-            (root / 'data/drive-state.json').write_text(json.dumps({'files': {'id': record}}))
+            historic = {'baseline': True, 'cat': 'Landscape', 'sub': baseline[2]['sub'],
+                        'file': baseline[2]['files'][0], 'source_md5': 'archive-hash'}
+            (root / 'data/drive-state.json').write_text(json.dumps({'files': {'old-id': historic, 'id': record}}))
             build(root)
             before = {p.name: p.read_text() for p in root.glob('gallery*.html')}
             self.assertIn('70 photographs', before['gallery-landscape.html'])

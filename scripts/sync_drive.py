@@ -92,6 +92,10 @@ def save_images(raw, full, preview):
 def import_photos(session, config, state, root=ROOT):
     # Keep every historic record even when a source is moved, deleted or edited.
     imported = 0
+    archive_path = root / 'data/drive-archive.json'
+    archive = json.loads(archive_path.read_text()) if archive_path.exists() else []
+    archive_index = {(p['cat'], p['sub'], p['drive_name'], p['md5']): p for p in archive}
+    archive_names = {key[:3] for key in archive_index}
     hashes = {v['source_md5'] for v in state['files'].values() if v.get('source_md5')}
     for cat, folder in config['categories'].items():
         response = session.get(f'{API}/{folder}', params={'fields': 'id,mimeType'}, timeout=60)
@@ -104,6 +108,18 @@ def import_photos(session, config, state, root=ROOT):
             if int(item.get('size', 0)) > MAX_BYTES:
                 raise ValueError('Photo exceeds 80 MiB limit')
             checksum = item.get('md5Checksum')
+            name_key = (cat, location, item['name'])
+            if not checksum and name_key in archive_names:
+                raise ValueError('Archived photo is not ready: missing Drive checksum; retry later')
+            historic = archive_index.get((*name_key, checksum))
+            if historic:
+                # Bind the cloud copy to its existing website photo, without importing it twice.
+                state['files'][item['id']] = {
+                    'baseline': True, 'cat': cat, 'sub': historic['sub'],
+                    'file': historic['file'], 'source_md5': checksum,
+                }
+                hashes.add(checksum)
+                continue
             if checksum and checksum in hashes:
                 continue
             # IDs, never uploaded filenames, determine public paths.
